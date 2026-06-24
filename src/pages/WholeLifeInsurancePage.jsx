@@ -1,0 +1,98 @@
+import { Shield, CheckCircle2, Clock, Award, Zap, Users, FileText, TrendingUp, PieChart, Banknote } from "lucide-react";
+import { InsurancePageTemplate } from "@/components/InsurancePageTemplate";
+
+export default function WholeLifeInsurancePage() {
+  return (
+    <InsurancePageTemplate
+      title="Whole Life Insurance"
+      subtitle="Lifetime coverage with guaranteed savings & wealth creation."
+      description="Complete life insurance for your entire lifetime with guaranteed additions, maturity benefits, and loan facility. Secure your family's future while building wealth."
+      heroIcon={TrendingUp}
+      heroImage="/src/assets/insurance-banners/whole-life-insurance.webp"
+      breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Life Insurance", href: "/life-insurance" }, { label: "Whole Life Insurance" }]}
+      productName="Whole Life Insurance"
+      introduction="Whole Life Insurance is the perfect solution for those seeking lifetime protection combined with savings and wealth creation. Unlike term insurance that covers you for a fixed period, whole life insurance provides coverage for your entire lifetime while also building a savings component that grows over time. At THIRU Insurance, our whole life plans offer guaranteed returns, bonuses, and the flexibility to access funds when needed — making them an excellent choice for long-term financial planning."
+      whatIs="Whole Life Insurance is a type of life insurance policy that provides coverage for the entire lifetime of the insured person, rather than a fixed term. In addition to the death benefit, whole life policies have a savings or investment component called the cash value, which grows over time on a tax-deferred basis. The policy pays a guaranteed sum assured to the nominee upon the policyholder's death, regardless of when it occurs. Additionally, the policy accumulates bonuses and guaranteed additions that are paid out either at maturity or upon death. In India, whole life insurance plans are popular among individuals looking for lifelong financial security combined with wealth accumulation."
+      benefits={[
+        { icon: Shield, title: "Lifetime Coverage", desc: "Complete life insurance coverage for your entire lifetime — not just a fixed term." },
+        { icon: TrendingUp, title: "Guaranteed Additions", desc: "Enjoy guaranteed additions and bonuses that accumulate over the policy term." },
+        { icon: Award, title: "Maturity Benefits", desc: "Receive the full sum assured plus accumulated bonuses at policy maturity." },
+        { icon: Zap, title: "Loan Facility", desc: "Access loans against your policy up to 90% of the surrender value." },
+        { icon: Clock, title: "Flexible Premium Terms", desc: "Choose premium payment terms from 5 to 30 years based on your convenience." },
+        { icon: FileText, title: "Tax Benefits", desc: "Premium deductions under Section 80C and tax-free maturity under 10(10D)." },
+        { icon: PieChart, title: "Wealth Accumulation", desc: "Build significant wealth through guaranteed additions and loyalty bonuses." },
+        { icon: Banknote, title: "Partial Withdrawals", desc: "Withdraw accumulated cash value partially for emergencies or goals." },
+      ]}
+      coverage={[
+        { label: "Death Benefit", desc: "Sum assured + accrued bonuses paid to nominee on death anytime" },
+        { label: "Maturity Benefit", desc: "Sum assured + guaranteed additions + loyalty bonus at maturity" },
+        { label: "Guaranteed Additions", desc: "Annual guaranteed additions at a fixed rate on the sum assured" },
+        { label: "Loyalty Bonus", desc: "Additional bonus payments at specified intervals during policy term" },
+        { label: "Accidental Death Benefit", desc: "Double the sum assured in case of accidental death (with rider)" },
+        { label: "Terminal Illness Benefit", desc: "Advance payment of sum assured on diagnosis of terminal illness" },
+      ]}
+      exclusions={[
+        { label: "Suicide Clause", desc: "No claim payable if suicide occurs within 12 months of policy start" },
+        { label: "Misrepresentation", desc: "Non-disclosure of material facts or false information in application" },
+        { label: "High-Risk Activities", desc: "Death resulting from participation in hazardous activities" },
+        { label: "War & Nuclear", desc: "Death due to war, invasion, or nuclear radiation incidents" },
+        { label: "Alcohol & Drug Abuse", desc: "Death directly related to alcohol or substance abuse" },
+      ]}
+      whyChoose={[
+        { icon: Shield, title: "IRDAI Approved", desc: "All whole life plans from IRDAI-approved life insurers." },
+        { icon: Award, title: "2 Lakh+ Policyholders", desc: "Trusted by over 2 lakh customers for lifetime protection." },
+        { icon: Zap, title: "Easy Online Purchase", desc: "100% digital purchase process with instant policy issuance." },
+        { icon: Users, title: "Secure Loan Facility", desc: "Get loans against your policy at competitive interest rates." },
+        { icon: Clock, title: "Lifetime Support", desc: "Dedicated relationship manager for the entire policy term." },
+        { icon: FileText, title: "Transparent Returns", desc: "Clear and guaranteed bonus declarations every year." },
+      ]}
+      enquiryFormSpecific={
+        <div className="space-y-4">
+          <h4 className="text-sm font-bold text-[#14204A] border-b border-gray-100 pb-2">Personal Details</h4>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Age *</label>
+              <input type="number" name="age" required placeholder="e.g. 30" min="18" max="60" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Occupation *</label>
+              <input type="text" name="occupation" required placeholder="e.g. Business Owner" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Annual Income *</label>
+              <select name="annualIncome" required className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none">
+                <option value="">Select</option>
+                <option value="below-3-lakh">Below ₹3 Lakh</option>
+                <option value="3-5-lakh">₹3 - ₹5 Lakh</option>
+                <option value="5-10-lakh">₹5 - ₹10 Lakh</option>
+                <option value="10-25-lakh">₹10 - ₹25 Lakh</option>
+                <option value="above-25-lakh">Above ₹25 Lakh</option>
+              </select>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Coverage Requirement *</label>
+              <select name="coverageRequirement" required className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none">
+                <option value="">Select</option>
+                <option value="5-lakh">₹5 Lakh</option>
+                <option value="10-lakh">₹10 Lakh</option>
+                <option value="25-lakh">₹25 Lakh</option>
+                <option value="50-lakh">₹50 Lakh</option>
+                <option value="1-crore">₹1 Crore</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      }
+      faqs={[
+        { question: "What is the difference between term insurance and whole life insurance?", answer: "Term insurance covers you for a fixed period (e.g., 20-30 years) with no maturity benefit. Whole life insurance covers you for your entire lifetime and provides a maturity benefit with bonuses. Whole life has higher premiums but builds cash value over time." },
+        { question: "Can I take a loan against my whole life insurance policy?", answer: "Yes, whole life insurance policies accumulate a surrender value after 2-3 years. You can take a loan of up to 90% of this surrender value at competitive interest rates, making it a useful source of emergency funds." },
+        { question: "What are guaranteed additions in whole life insurance?", answer: "Guaranteed additions are fixed amounts added to your policy each year at a predetermined rate. For example, if the guarantee is ₹50 per ₹1,000 of sum assured, you get ₹5,000 added annually for a ₹1 lakh policy." },
+        { question: "Is whole life insurance a good investment option?", answer: "Whole life insurance offers a combination of protection and savings with guaranteed returns. While returns may be lower than pure investment products, the dual benefit of lifetime cover and guaranteed wealth accumulation makes it an excellent choice for conservative investors." },
+        { question: "What happens to my whole life policy if I stop paying premiums?", answer: "After paying premiums for at least 2-3 years, the policy acquires a paid-up value. Future benefits are reduced proportionally but the policy continues. You can also surrender the policy and receive the surrender value." },
+      ]}
+      ctaText="Secure Lifetime Protection!"
+    />
+  );
+}

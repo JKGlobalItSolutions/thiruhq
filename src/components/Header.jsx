@@ -1,59 +1,132 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShieldCheck, Car, Bike, Plane, Briefcase, Heart, ArrowRight, Building, Smartphone, Users, Ambulance, Store, Cog, Wallet } from "lucide-react";
+import { Menu, X, ChevronDown, ShieldCheck, Car, Bike, Plane, Briefcase, Heart, ArrowRight, Building, Smartphone, Users, Ambulance, Store, Cog, Wallet, Globe, CheckCircle, Headphones, FileText, LifeBuoy, RefreshCw, Phone, MessageSquare, Clock, Award, TrendingUp, Percent, Truck, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoImg from "@/assets/logo.png";
 
-const NAV_ITEMS = [
-  { label: "Insurance", href: "/insurance", hasMega: true },
-  { label: "About Us", href: "/about-us" },
-  { label: "Download App", href: "/download-app" },
-  { label: "Contact Us", href: "/contact-us" },
-  { label: "Agent Login", href: "/agent-login" },
+const CATEGORIES = [
+  { id: "motor", label: "Motor Insurance", icon: Car, slug: "/insurance/motor-insurance" },
+  { id: "health", label: "Health Insurance", icon: Heart, slug: "/insurance/health-insurance" },
+  { id: "life", label: "Life Insurance", icon: ShieldCheck, slug: "/life-insurance" },
+  { id: "travel", label: "Travel Insurance", icon: Plane, slug: "/insurance/travel-insurance" },
+  { id: "business", label: "Business Insurance", icon: Briefcase, slug: "/business-insurance" },
 ];
 
-const MEGA_COLUMNS = [
-  {
-    title: "Health & Life",
-    icon: Heart,
-    items: [
-      { label: "Health Insurance", desc: "Cashless hospitalization", slug: "/insurance/health-insurance" },
-      { label: "Personal Accident", desc: "Accident protection", slug: "/insurance/personal-accident-insurance" },
-    ],
-  },
-  {
+const SUBCATEGORIES = {
+  motor: {
     title: "Motor Insurance",
-    icon: Car,
-    items: [
-      { label: "Car Insurance", desc: "Comprehensive & third-party", slug: "/insurance/car-insurance" },
-      { label: "Bike Insurance", desc: "Two-wheeler protection", slug: "/insurance/bike-insurance" },
-      { label: "Motor Insurance", desc: "All vehicle protection", slug: "/insurance/motor-insurance" },
+    groups: [
+      {
+        label: "Car Insurance",
+        icon: Car,
+        slug: "/insurance/car-insurance",
+        items: [
+          { label: "Comprehensive Car Insurance", slug: "/comprehensive-car-insurance" },
+          { label: "Third Party Car Insurance", slug: "/third-party-car-insurance" },
+          { label: "Zero Depreciation Insurance", slug: "/zero-depreciation-insurance" },
+          { label: "Own Damage Insurance", slug: "/own-damage-car-insurance" },
+        ],
+      },
+      {
+        label: "Bike Insurance",
+        icon: Bike,
+        slug: "/insurance/bike-insurance",
+        items: [
+          { label: "Comprehensive Bike Insurance", slug: "/insurance/bike-insurance" },
+          { label: "Third Party Bike Insurance", slug: "/insurance/bike-insurance" },
+          { label: "Electric Bike Insurance", slug: "/insurance/bike-insurance" },
+        ],
+      },
     ],
   },
-  {
-    title: "Travel & Device",
+  health: {
+    title: "Health Insurance",
+    icon: Heart,
+    slug: "/insurance/health-insurance",
+    items: [
+      { label: "Individual Health Insurance", slug: "/individual-health-insurance" },
+      { label: "Family Floater Insurance", slug: "/family-floater-insurance" },
+      { label: "Senior Citizen Health Insurance", slug: "/senior-citizen-insurance" },
+      { label: "Critical Illness Insurance", slug: "/critical-illness-insurance" },
+    ],
+  },
+  life: {
+    title: "Life Insurance",
+    icon: ShieldCheck,
+    slug: "/life-insurance",
+    items: [
+      { label: "Term Life Insurance", slug: "/term-insurance" },
+      { label: "Whole Life Insurance", slug: "/whole-life-insurance" },
+      { label: "Child Plans", slug: "/child-plans" },
+      { label: "Retirement Plans", slug: "/retirement-plans" },
+    ],
+  },
+  travel: {
+    title: "Travel Insurance",
     icon: Plane,
+    slug: "/insurance/travel-insurance",
     items: [
-      { label: "Travel Insurance", desc: "Worldwide travel cover", slug: "/insurance/travel-insurance" },
-      { label: "Device Insurance", desc: "Gadget protection", slug: "/insurance/device-insurance" },
+      { label: "Domestic Travel Insurance", slug: "/domestic-travel-insurance" },
+      { label: "International Travel Insurance", slug: "/international-travel-insurance" },
+      { label: "Student Travel Insurance", slug: "/student-travel-insurance" },
     ],
   },
-  {
-    title: "Business",
+  business: {
+    title: "Business Insurance",
     icon: Briefcase,
+    slug: "/business-insurance",
     items: [
-      { label: "Shop Insurance", desc: "Retail shop protection", slug: "/insurance/shop-insurance" },
-      { label: "View All Insurance", desc: "Browse all products", slug: "/insurance" },
+      { label: "Commercial Vehicle Insurance", slug: "/commercial-vehicle-insurance" },
+      { label: "Shop Insurance", slug: "/insurance/shop-insurance" },
+      { label: "Property Insurance", slug: "/property-insurance" },
+      { label: "Employee Health Insurance", slug: "/employee-health-insurance" },
     ],
   },
+};
+
+const ENTERPRISE_ITEMS = [
+  { label: "Group Health Insurance", slug: "/enterprise/group-health-insurance", desc: "Comprehensive health coverage for your team" },
+  { label: "Employee Benefits", slug: "/enterprise/employee-benefits", desc: "Tailored benefits package for employees" },
+  { label: "SME Insurance", slug: "/enterprise/sme-insurance", desc: "Protection designed for small businesses" },
+  { label: "Corporate Risk Coverage", slug: "/enterprise/corporate-risk-coverage", desc: "End-to-end risk management solutions" },
+];
+
+const WHY_THIRU_ITEMS = [
+  { label: "Trusted Insurance Partner", slug: "/why-thiru/trusted-partner", desc: "Years of excellence in insurance services" },
+  { label: "Quick Claim Settlement", slug: "/why-thiru/quick-claim-settlement", desc: "Hassle-free and fast claim processing" },
+  { label: "Best Premium Rates", slug: "/why-thiru/best-premium-rates", desc: "Competitive pricing with maximum coverage" },
+  { label: "24×7 Customer Support", slug: "/why-thiru/customer-support", desc: "Round-the-clock assistance whenever you need" },
+  { label: "Digital Policy Management", slug: "/why-thiru/digital-policy", desc: "Manage all policies from one dashboard" },
+];
+
+const SUPPORT_ITEMS = [
+  { label: "Contact Us", slug: "/contact-us", desc: "Get in touch with our team", icon: Phone },
+  { label: "FAQs", slug: "/faqs", desc: "Find answers to common questions", icon: MessageSquare },
+  { label: "Claim Assistance", slug: "/claim-assistance", desc: "Help with your claims process", icon: Headphones },
+  { label: "Grievance Support", slug: "/grievance-support", desc: "Raise and track grievances", icon: FileText },
+];
+
+const RENEWALS_ITEMS = [
+  { label: "Renew Car Insurance", slug: "/renew/car-insurance", icon: Car },
+  { label: "Renew Bike Insurance", slug: "/renew/bike-insurance", icon: Bike },
+  { label: "Renew Health Insurance", slug: "/renew/health-insurance", icon: Heart },
+  { label: "Renew Life Insurance", slug: "/renew/life-insurance", icon: ShieldCheck },
+];
+
+const CLAIMS_ITEMS = [
+  { label: "File a Claim", slug: "/claims/file-claim", icon: FileText },
+  { label: "Track Claim Status", slug: "/claims/track-status", icon: Clock },
 ];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
-  const megaTimeoutRef = useRef(null);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileCategory, setMobileCategory] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("motor");
+  const dropdownTimeoutRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -65,23 +138,199 @@ export function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setMegaOpen(false);
+    setMobileProductsOpen(false);
+    setMobileCategory(null);
+    setOpenDropdown(null);
+    setSelectedCategory("motor");
   }, [location.pathname]);
 
-  const handleMegaEnter = () => {
-    if (megaTimeoutRef.current) clearTimeout(megaTimeoutRef.current);
-    setMegaOpen(true);
+  const handleDropdownEnter = (name) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setOpenDropdown(name);
   };
 
-  const handleMegaLeave = () => {
-    megaTimeoutRef.current = setTimeout(() => setMegaOpen(false), 150);
+  const handleDropdownLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
   };
 
   useEffect(() => {
     return () => {
-      if (megaTimeoutRef.current) clearTimeout(megaTimeoutRef.current);
+      if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
     };
   }, []);
+
+  const renderMegaMenu = () => {
+    const cat = SUBCATEGORIES[selectedCategory];
+    return (
+      <div
+        className="fixed left-0 w-screen z-[9999] top-[80px] border-b border-gray-100 bg-white shadow-[0_20px_60px_-12px_rgba(0,0,0,0.2)] py-5 animate-in fade-in slide-in-from-top-2 duration-200"
+        onMouseEnter={() => handleDropdownEnter("products")}
+        onMouseLeave={handleDropdownLeave}
+      >
+        <div className="mx-auto max-w-7xl px-4 md:px-6 flex gap-5">
+          {/* LEFT COLUMN: Categories */}
+          <div className="w-[220px] shrink-0">
+            <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#14204A] mb-3 px-3">Categories</div>
+            <div className="space-y-1">
+              {CATEGORIES.map((catItem) => (
+                <Link
+                  key={catItem.id}
+                  to={catItem.slug}
+                  onClick={() => setOpenDropdown(null)}
+                  onMouseEnter={() => setSelectedCategory(catItem.id)}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                    selectedCategory === catItem.id
+                      ? "bg-[#14204A] text-white shadow-sm"
+                      : "text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5"
+                  )}
+                >
+                  <span className={cn(
+                    "grid h-7 w-7 shrink-0 place-items-center rounded-lg",
+                    selectedCategory === catItem.id ? "bg-white/15" : "bg-[#14204A]/10"
+                  )}>
+                    <catItem.icon className={cn("h-3.5 w-3.5", selectedCategory === catItem.id ? "text-white" : "text-[#14204A]")} />
+                  </span>
+                  <span>{catItem.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* MIDDLE COLUMN: Dynamic Subcategories */}
+          <div className="flex-1 border-l border-gray-100 pl-5">
+            <Link
+              to={cat.slug}
+              onClick={() => setOpenDropdown(null)}
+              className="text-[13px] font-bold uppercase tracking-[0.08em] text-[#14204A] mb-3 block hover:underline"
+            >
+              {cat.title}
+            </Link>
+            {cat.groups ? (
+              <div className="space-y-4">
+                {cat.groups.map((group, gIdx) => (
+                  <div key={gIdx}>
+                    <Link
+                      to={group.slug}
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-center gap-2 mb-2 text-[13px] font-semibold text-[#222222] hover:text-[#14204A]"
+                    >
+                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-md bg-gray-100 text-[#555555]">
+                        <group.icon className="h-3 w-3" />
+                      </span>
+                      <span>{group.label}</span>
+                    </Link>
+                    <div className="space-y-0.5 ml-7">
+                      {group.items.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.slug}
+                          onClick={() => setOpenDropdown(null)}
+                          className="block rounded-lg px-2.5 py-1.5 text-[13px] font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-all duration-200"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-0.5">
+                {cat.items.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.slug}
+                    onClick={() => setOpenDropdown(null)}
+                    className="block rounded-lg px-2.5 py-2 text-[13px] font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-all duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT COLUMN: Promotional Banner */}
+          <div className="w-[240px] shrink-0 rounded-xl bg-gradient-to-br from-[#14204A] to-[#1a2e5c] p-5 text-white flex flex-col relative overflow-hidden">
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FFCD48]/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-[#FFCD48]/10 rounded-full blur-xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex items-center gap-2 mb-1">
+                <ShieldCheck className="h-5 w-5 text-[#FFCD48]" />
+                <span className="text-sm font-bold tracking-wide">THIRU INSURE PLUS</span>
+              </div>
+              <p className="text-[13px] text-gray-200 mb-3 font-medium">Protect What Matters Most</p>
+              <div className="space-y-1.5 mb-4">
+                {["Instant Policy Issuance", "Fast Claim Processing", "Affordable Premiums", "100% Digital Experience"].map((feat) => (
+                  <div key={feat} className="flex items-center gap-2 text-[12px] text-gray-200">
+                    <CheckCircle className="h-3.5 w-3.5 text-[#FFCD48] shrink-0" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-auto">
+                <Link
+                  to="/plus"
+                  onClick={() => setOpenDropdown(null)}
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#FFCD48] hover:text-white transition-colors group"
+                >
+                  Know More
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderDropdown = (items, isEnterpriseStyle = false, isIconStyle = false) => (
+    <div
+      className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-100 bg-white shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] p-3 animate-in fade-in slide-in-from-top-2 duration-200"
+      onMouseEnter={() => {
+        if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+      }}
+      onMouseLeave={handleDropdownLeave}
+    >
+      <div className="space-y-1">
+        {items.map((item) => (
+          <Link
+            key={item.label}
+            to={item.slug}
+            onClick={() => setOpenDropdown(null)}
+            className={cn(
+              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-all duration-200",
+              isIconStyle && "gap-3"
+            )}
+          >
+            {item.icon && (
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#14204A]/5 text-[#14204A]">
+                <item.icon className="h-3.5 w-3.5" />
+              </span>
+            )}
+            <div>
+              <div className="text-[13px] font-medium">{item.label}</div>
+              {item.desc && <div className="text-[11px] text-gray-400 font-normal mt-0.5">{item.desc}</div>}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+
+  const navItems = [
+    { label: "Products", id: "products", hasMega: true },
+    { label: "Enterprise", id: "enterprise", href: "/enterprise" },
+    { label: "Why Thiru Insurance", id: "why-thiru", href: "/why-thiru" },
+    { label: "Support", id: "support", href: "/support" },
+  ];
+
+  const rightItems = [
+    { label: "Renewals", id: "renewals", href: "/renewals" },
+    { label: "Claims", id: "claims", href: "/claims" },
+  ];
 
   return (
     <header
@@ -93,84 +342,105 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 md:px-6">
-        <Link to="/" className="flex items-center shrink-0">
-          <img src={logoImg} alt="THIRU" className="h-20 w-20 object-contain transition-all duration-300 group-hover:scale-105" />
-        </Link>
+        <div className="flex items-center gap-1">
+          <Link to="/" className="flex items-center shrink-0">
+            <img src={logoImg} alt="THIRU INSURANCE" className="h-20 w-20 object-contain transition-all duration-300 group-hover:scale-105" />
+          </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map((item) =>
-            item.hasMega ? (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={handleMegaEnter}
-                onMouseLeave={handleMegaLeave}
-              >
+          <nav className="hidden lg:flex items-center gap-0.5 ml-2">
+            {navItems.map((item) =>
+              item.hasMega ? (
+                <div
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => handleDropdownEnter(item.id)}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <button
+                    className={cn(
+                      "flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#14204A] rounded-lg transition-all duration-200 hover:bg-[#14204A]/5",
+                      openDropdown === item.id && "text-[#14204A] bg-[#14204A]/5"
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", openDropdown === item.id && "rotate-180")} />
+                  </button>
+                  {openDropdown === item.id && renderMegaMenu()}
+                </div>
+              ) : (
                 <Link
-                  to={item.href}
-                  className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-[#555555] hover:text-[#042345] rounded-lg transition-all duration-200 hover:bg-[#042345]/5"
+                  key={item.id}
+                  to={item.href || "/"}
+                  className={cn(
+                    "flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#14204A] rounded-lg transition-all duration-200 hover:bg-[#14204A]/5",
+                    openDropdown === item.id && "text-[#14204A] bg-[#14204A]/5"
+                  )}
+                  onMouseEnter={() => handleDropdownEnter(item.id)}
+                  onMouseLeave={handleDropdownLeave}
                 >
                   {item.label}
-                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", megaOpen && "rotate-180")} />
+                  {item.href && <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", openDropdown === item.id && "rotate-180")} />}
                 </Link>
-                {megaOpen && (
-                  <div
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[900px] rounded-2xl border border-gray-100 bg-white shadow-[0_20px_60px_-12px_rgba(0,0,0,0.2)] p-6 animate-in fade-in slide-in-from-top-2 duration-200"
-                    onMouseEnter={handleMegaEnter}
-                    onMouseLeave={handleMegaLeave}
-                  >
-                    <div className="grid grid-cols-4 gap-5">
-                      {MEGA_COLUMNS.map((col) => (
-                        <div key={col.title}>
-                          <div className="flex items-center gap-2 mb-3">
-                            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#042345]/10 text-[#042345]">
-                              <col.icon className="h-3.5 w-3.5" />
-                            </span>
-                            <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#042345]">{col.title}</span>
-                          </div>
-                          <div className="space-y-1">
-                            {col.items.map((prod) => (
-                              <Link
-                                key={prod.label}
-                                to={prod.slug}
-                                onClick={() => setMegaOpen(false)}
-                                className="block rounded-lg px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#042345] hover:bg-[#042345]/5 transition-all duration-200 group/item"
-                              >
-                                <div className="flex items-center justify-between">
-                                  <span>{prod.label}</span>
-                                  <ArrowRight className="h-3 w-3 text-gray-300 transition-all duration-200 -translate-x-1 opacity-0 group-hover/item:translate-x-0 group-hover/item:opacity-100 group-hover/item:text-[#042345]" />
-                                </div>
-                                <div className="text-[11px] text-gray-400 font-normal mt-0.5">{prod.desc}</div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
+              )
+            )}
+          </nav>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-1.5 shrink-0">
+          {rightItems.map((item) => (
+            <div
+              key={item.id}
+              className="relative"
+              onMouseEnter={() => handleDropdownEnter(item.id)}
+              onMouseLeave={handleDropdownLeave}
+            >
               <Link
-                key={item.label}
-                to={item.href}
-                className="px-4 py-2 text-sm font-medium text-[#555555] hover:text-[#042345] rounded-lg transition-all duration-200 hover:bg-[#042345]/5"
+                to={item.href || "/"}
+                className={cn(
+                  "flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#14204A] rounded-lg transition-all duration-200 hover:bg-[#14204A]/5",
+                  openDropdown === item.id && "text-[#14204A] bg-[#14204A]/5"
+                )}
               >
                 {item.label}
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", openDropdown === item.id && "rotate-180")} />
               </Link>
-            ),
-          )}
-        </nav>
+              {openDropdown === item.id && (
+                item.id === "renewals" ? renderDropdown(RENEWALS_ITEMS, false, true) :
+                item.id === "claims" ? renderDropdown(CLAIMS_ITEMS, false, true) :
+                null
+              )}
+            </div>
+          ))}
 
-        <div className="hidden md:flex items-center gap-2.5 shrink-0">
-          <Link to="/agent-login">
-            <Button variant="ghost" size="default" className="font-semibold text-[#555555] hover:text-[#042345] hover:bg-[#042345]/5 rounded-lg">
+          <Link to="/get-quote">
+            <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white shadow-sm hover:shadow-md rounded-xl px-5 font-semibold text-sm transition-all duration-200">
+              Get Quote
+            </Button>
+          </Link>
+
+          <Link to="/login">
+            <Button variant="ghost" size="default" className="font-semibold text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 rounded-lg">
               Login
             </Button>
           </Link>
-          <Link to="/contact-us">
-            <Button className="bg-[#042345] hover:bg-[#042345]/90 text-white shadow-sm hover:shadow-md rounded-lg px-5 font-semibold text-sm transition-all duration-200">
+
+          <div className="relative group">
+            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#14204A] rounded-lg transition-all duration-200 hover:bg-[#14204A]/5">
+              <Globe className="h-4 w-4" />
+              <span>English</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden md:flex lg:hidden items-center gap-2.5 shrink-0">
+          <Link to="/get-quote">
+            <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white shadow-sm hover:shadow-md rounded-xl px-5 font-semibold text-sm transition-all duration-200">
               Get Quote
+            </Button>
+          </Link>
+          <Link to="/login">
+            <Button variant="ghost" size="default" className="font-semibold text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 rounded-lg">
+              Login
             </Button>
           </Link>
         </div>
@@ -185,32 +455,154 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white lg:hidden shadow-lg">
+        <div className="border-t border-gray-100 bg-white lg:hidden shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="mx-auto max-w-7xl px-4 py-4">
             <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#042345] hover:bg-[#042345]/5 transition-colors"
+              {/* Products with expandable categories */}
+              <div>
+                <button
+                  onClick={() => setMobileProductsOpen((o) => !o)}
+                  className="flex items-center justify-between w-full rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
                 >
-                  {item.label}
-                </Link>
-              ))}
+                  <span>Products</span>
+                  <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", mobileProductsOpen && "rotate-180")} />
+                </button>
+                {mobileProductsOpen && (
+                  <div className="ml-4 pl-3 border-l-2 border-[#14204A]/10 space-y-2 py-2">
+                    {CATEGORIES.map((cat) => (
+                      <div key={cat.id}>
+                        <button
+                          onClick={() => setMobileCategory(mobileCategory === cat.id ? null : cat.id)}
+                          className="flex items-center justify-between w-full rounded-lg px-3 py-2 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="grid h-5 w-5 shrink-0 place-items-center rounded bg-[#14204A]/10 text-[#14204A]">
+                              <cat.icon className="h-3 w-3" />
+                            </span>
+                            <span>{cat.label}</span>
+                          </div>
+                          <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", mobileCategory === cat.id && "rotate-180")} />
+                        </button>
+                        {mobileCategory === cat.id && (
+                          <div className="ml-7 pl-3 border-l-2 border-gray-100 space-y-1 py-1">
+                            {SUBCATEGORIES[cat.id]?.groups ? (
+                              SUBCATEGORIES[cat.id].groups.map((group, gIdx) => (
+                                <div key={gIdx}>
+                                  <Link
+                                    to={group.slug}
+                                    onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
+                                    className="block rounded-lg px-3 py-1.5 text-[12px] font-semibold text-[#222222] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+                                  >
+                                    {group.label}
+                                  </Link>
+                                  <div className="pl-3 space-y-0.5">
+                                    {group.items.map((item) => (
+                                      <Link
+                                        key={item.label}
+                                        to={item.slug}
+                                        onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
+                                        className="block rounded-lg px-3 py-1 text-[13px] font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+                                      >
+                                        {item.label}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <>
+                                <Link
+                                  to={SUBCATEGORIES[cat.id]?.slug || cat.slug}
+                                  onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
+                                  className="block rounded-lg px-3 py-1.5 text-[12px] font-semibold text-[#222222] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+                                >
+                                  {SUBCATEGORIES[cat.id]?.title || cat.label}
+                                </Link>
+                                <div className="pl-3 space-y-0.5">
+                                  {SUBCATEGORIES[cat.id]?.items.map((item) => (
+                                    <Link
+                                      key={item.label}
+                                      to={item.slug}
+                                      onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
+                                      className="block rounded-lg px-3 py-1 text-[13px] font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Enterprise */}
+              <Link
+                to="/enterprise"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+              >
+                Enterprise
+              </Link>
+
+              {/* Why Thiru Insurance */}
+              <Link
+                to="/why-thiru"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+              >
+                Why Thiru Insurance
+              </Link>
+
+              {/* Support */}
+              <Link
+                to="/contact-us"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+              >
+                Support
+              </Link>
+
+              <hr className="my-2 border-gray-100" />
+
+              {/* Renewals */}
+              <Link
+                to="/renew-car-insurance"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+              >
+                Renewals
+              </Link>
+
+              {/* Claims */}
+              <Link
+                to="/claims"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
+              >
+                Claims
+              </Link>
             </div>
             <hr className="my-4 border-gray-100" />
             <div className="grid grid-cols-2 gap-2">
-              <Link to="/agent-login" onClick={() => setMobileOpen(false)}>
+              <Link to="/login" onClick={() => setMobileOpen(false)}>
                 <Button variant="ghost" className="font-semibold text-[#555555] rounded-lg w-full">
                   Login
                 </Button>
               </Link>
-              <Link to="/contact-us" onClick={() => setMobileOpen(false)}>
-                <Button className="bg-[#042345] hover:bg-[#042345]/90 text-white rounded-lg font-semibold w-full">
+              <Link to="/get-quote" onClick={() => setMobileOpen(false)}>
+                <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white rounded-xl font-semibold w-full">
                   Get Quote
                 </Button>
               </Link>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-2 text-sm text-[#555555]">
+              <Globe className="h-4 w-4" />
+              <span>English</span>
             </div>
           </div>
         </div>

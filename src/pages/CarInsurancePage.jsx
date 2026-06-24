@@ -1,24 +1,87 @@
-import { Car, CheckCircle2, Zap, Shield, Clock, Award, Umbrella, DollarSign } from "lucide-react";
-import { GenericPage } from "./GenericPage";
-
-const features = [
-  { icon: Shield, title: "Cashless Repairs", desc: "Repair at 10,000+ network garages without paying upfront." },
-  { icon: Zap, title: "Instant Claims", desc: "Claim approval in under 30 minutes with our digital process." },
-  { icon: Clock, title: "24/7 Roadside Assistance", desc: "Flat tire, battery jump, fuel delivery — anytime, anywhere." },
-  { icon: Award, title: "Zero Depreciation Cover", desc: "Full claim without depreciation deduction on parts." },
-  { icon: Umbrella, title: "Natural Disaster Cover", desc: "Protected against floods, earthquakes, cyclones and more." },
-  { icon: DollarSign, title: "Affordable Premiums", desc: "Comprehensive car insurance starting at just ₹5,244 per year." },
-];
+import { Car, Shield, CheckCircle2, Clock, Award, Zap, Headphones, Users, FileText, Wallet, Truck } from "lucide-react";
+import { InsurancePageTemplate } from "@/components/InsurancePageTemplate";
 
 export default function CarInsurancePage() {
   return (
-    <GenericPage
+    <InsurancePageTemplate
       title="Car Insurance"
-      subtitle="Comprehensive & third-party car insurance with instant claim settlement. Cashless repairs at 10,000+ garages."
-      description="THIRU Car Insurance — comprehensive car insurance with instant claim settlement and cashless repairs."
-      features={features}
-      breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Car Insurance" }]}
-      icon={Car}
+      subtitle="Complete car protection with own damage, theft & third-party cover."
+      description="Comprehensive car insurance with cashless repairs, instant claims, and 24/7 roadside assistance. Protect your vehicle starting at affordable premiums."
+      heroIcon={Car}
+      heroImage="/src/assets/insurance-banners/car-insurance.webp"
+      productName="Car Insurance"
+      introduction="Your car is one of your most valuable assets, and protecting it with the right insurance is not just a legal requirement — it's financial wisdom. At THIRU Insurance, we offer comprehensive car insurance policies designed to give you complete peace of mind on the road. Whether you're driving through city traffic or cruising on the highway, our car insurance plans ensure that you, your vehicle, and your finances are protected against unforeseen events."
+      whatIs="Car insurance, also known as motor insurance, is a contract between you and an insurance company that protects your vehicle against financial loss in case of accidents, theft, natural disasters, or third-party damages. In India, it is mandatory to have at least third-party car insurance under the Motor Vehicles Act, 1988. However, a comprehensive car insurance policy offers much broader protection, covering both own damage and third-party liabilities. At THIRU Insurance, we provide tailored car insurance plans that suit every budget and driving need."
+      benefits={[
+        { icon: Shield, title: "Comprehensive Coverage", desc: "Own damage + third-party liability + theft + fire + natural calamities — all in one policy." },
+        { icon: Zap, title: "Quick Claim Settlement", desc: "Cashless repairs at 5,000+ network garages across India with claim settlement in under 60 minutes." },
+        { icon: Clock, title: "24/7 Roadside Assistance", desc: "Flat tyre, battery jump, towing, fuel delivery, and lockout assistance anytime, anywhere." },
+        { icon: Award, title: "No Claim Bonus (NCB)", desc: "Earn up to 50% discount on renewal premium for every claim-free year." },
+        { icon: CheckCircle2, title: "Instant Policy Issuance", desc: "Paperless, door-step delivery of your policy document within minutes of purchase." },
+        { icon: Wallet, title: "Affordable Premiums", desc: "Car insurance starting from just ₹2,072/year with easy EMI options." },
+        { icon: Truck, title: "Zero Depreciation Add-on", desc: "Claim full value of car parts without depreciation deduction." },
+      ]}
+      coverage={[
+        { label: "Own Damage Cover", desc: "Damage to your vehicle due to accident, fire, theft, natural calamities" },
+        { label: "Third-Party Liability", desc: "Legal liability for damage to third-party property or person" },
+        { label: "Personal Accident Cover", desc: "Coverage for death or permanent disability of the owner-driver" },
+        { label: "Theft Protection", desc: "Full coverage if your car is stolen" },
+        { label: "Fire & Explosion", desc: "Damage caused by fire, explosion, or self-ignition" },
+        { label: "Natural Calamities", desc: "Coverage for floods, earthquakes, storms, landslides" },
+      ]}
+      exclusions={[
+        { label: "Wear and Tear", desc: "Normal depreciation and mechanical breakdown" },
+        { label: "Drunk Driving", desc: "Accidents occurring under the influence of alcohol or drugs" },
+        { label: "Unauthorized Use", desc: "Vehicle used outside the permitted geographical area" },
+        { label: "War & Nuclear Risks", desc: "Damage due to war, invasion, or nuclear incidents" },
+      ]}
+      whyChoose={[
+        { icon: Shield, title: "IRDAI Approved", desc: "We are a registered and IRDAI-approved insurance distributor." },
+        { icon: Award, title: "10,000+ Happy Customers", desc: "Trusted by thousands of car owners across India." },
+        { icon: Zap, title: "5-Minute Policy Issuance", desc: "Get your car insurance policy in just 5 minutes online." },
+        { icon: Clock, title: "24/7 Claim Support", desc: "Round-the-clock claim assistance with dedicated manager." },
+        { icon: Users, title: "5000+ Network Garages", desc: "Cashless repairs at authorized garages nationwide." },
+        { icon: FileText, title: "Paperless Process", desc: "100% digital documentation from quote to policy." },
+      ]}
+      enquiryFormSpecific={
+        <div className="space-y-4">
+          <h4 className="text-sm font-bold text-[#14204A] border-b border-gray-100 pb-2">Vehicle Details</h4>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Car Registration Number *</label>
+              <input type="text" name="regNumber" required placeholder="e.g. TN 01 AB 1234" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Car Make & Model *</label>
+              <input type="text" name="makeModel" required placeholder="e.g. Maruti Suzuki Swift" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Manufacturing Year *</label>
+              <input type="number" name="year" required placeholder="e.g. 2023" min="1990" max="2026" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Existing Insurance Provider</label>
+              <input type="text" name="existingInsurer" placeholder="e.g. New India Assurance" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-[#14204A]">Policy Expiry Date</label>
+              <input type="date" name="expiryDate" className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none" />
+            </div>
+          </div>
+        </div>
+      }
+      faqs={[
+        { question: "Is car insurance mandatory in India?", answer: "Yes, as per the Motor Vehicles Act, 1988, at least third-party car insurance is mandatory to drive on Indian roads. However, we recommend a comprehensive policy for complete financial protection." },
+        { question: "What is No Claim Bonus (NCB) in car insurance?", answer: "NCB is a reward for every claim-free year. You earn up to 50% discount on your renewal premium. The discount starts at 20% for the first claim-free year and increases up to 50% after 5 consecutive claim-free years." },
+        { question: "How long does it take to settle a car insurance claim?", answer: "At THIRU Insurance, we settle most claims within 48 hours. For cashless claims at network garages, approval is often given within 60 minutes." },
+        { question: "Can I transfer my existing car insurance to THIRU Insurance?", answer: "Absolutely. You can port your existing car insurance policy to THIRU Insurance at renewal time. We'll help you transfer your NCB and ensure continuous coverage." },
+        { question: "What documents are needed to buy car insurance online?", answer: "You'll need your car's registration certificate (RC), previous insurance policy (if renewing), and your PAN card. The process is 100% paperless." },
+      ]}
+      ctaText="Get Your Car Protected Today!"
     />
   );
 }
