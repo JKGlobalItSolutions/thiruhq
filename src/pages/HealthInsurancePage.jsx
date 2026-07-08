@@ -1,5 +1,6 @@
 import { Heart, CheckCircle2, Zap, Shield, Clock, Award, Umbrella, DollarSign } from "lucide-react";
 import { GenericPage } from "./GenericPage";
+import { HealthInsuranceIllustration } from "@/assets/illustrations";
 
 const features = [
   { icon: Shield, title: "Cashless Hospitalization", desc: "Admit at 10,000+ network hospitals without paying upfront." },
@@ -17,8 +18,9 @@ export default function HealthInsurancePage() {
       subtitle="Cashless hospitalization at 10,000+ hospitals. Comprehensive health coverage and instant claim approval for you and your family."
       description="THIRU Health Insurance — comprehensive medical coverage with cashless hospitalization at India's largest hospital network."
       features={features}
-breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Health Insurance" }]}
+      breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Health Insurance" }]}
       icon={Heart}
+      illustration={<HealthInsuranceIllustration />}
     />
   );
 }

@@ -1,5 +1,6 @@
 import { Car, CheckCircle2, Zap, Shield, Clock, Award, Umbrella, DollarSign } from "lucide-react";
 import { GenericPage } from "./GenericPage";
+import { MotorInsuranceIllustration } from "@/assets/illustrations";
 
 const features = [
   { icon: Shield, title: "Cashless Repairs", desc: "Repair at 10,000+ network garages without paying upfront." },
@@ -17,8 +18,9 @@ export default function MotorInsurancePage() {
       subtitle="Car and bike insurance with cashless repairs, zero paperwork claims, and coverage against accidents, theft, and natural disasters."
       description="THIRU Motor Insurance — comprehensive car and bike insurance with instant claim settlement and cashless repairs."
       features={features}
-breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Motor Insurance" }]}
+      breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Motor Insurance" }]}
       icon={Car}
+      illustration={<MotorInsuranceIllustration />}
     />
   );
 }

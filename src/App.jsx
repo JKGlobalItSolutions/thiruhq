@@ -42,7 +42,12 @@ const ElectricBikeInsurancePage = lazy(() => import("@/pages/ElectricBikeInsuran
 const EnterprisePage = lazy(() => import("@/pages/EnterprisePage"));
 const WhyThiruInsurancePage = lazy(() => import("@/pages/WhyThiruInsurancePage"));
 const SupportPage = lazy(() => import("@/pages/SupportPage"));
+const CallUsPage = lazy(() => import("@/pages/CallUsPage"));
+const FAQsPage = lazy(() => import("@/pages/FAQsPage"));
+const ClaimAssistancePage = lazy(() => import("@/pages/ClaimAssistancePage"));
+const GrievanceSupportPage = lazy(() => import("@/pages/GrievanceSupportPage"));
 const RenewalsPage = lazy(() => import("@/pages/RenewalsPage"));
+const RenewalPage = lazy(() => import("@/pages/RenewalPage"));
 const ClaimsPage = lazy(() => import("@/pages/ClaimsPage"));
 
 function LoadingFallback() {
@@ -75,6 +80,7 @@ export default function App() {
           <Route path="/download-app" element={<DownloadAppPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/agent-login" element={<AgentLoginPage />} />
+
           {/* Motor Insurance Sub-pages */}
           <Route path="/comprehensive-car-insurance" element={<ComprehensiveCarInsurancePage />} />
           <Route path="/third-party-car-insurance" element={<ThirdPartyCarInsurancePage />} />
@@ -83,32 +89,42 @@ export default function App() {
           <Route path="/comprehensive-bike-insurance" element={<ComprehensiveBikeInsurancePage />} />
           <Route path="/third-party-bike-insurance" element={<ThirdPartyBikeInsurancePage />} />
           <Route path="/electric-bike-insurance" element={<ElectricBikeInsurancePage />} />
+
           {/* Health Insurance Sub-pages */}
           <Route path="/individual-health-insurance" element={<IndividualHealthInsurancePage />} />
           <Route path="/family-floater-insurance" element={<FamilyFloaterInsurancePage />} />
           <Route path="/senior-citizen-insurance" element={<SeniorCitizenInsurancePage />} />
           <Route path="/critical-illness-insurance" element={<CriticalIllnessInsurancePage />} />
+
           {/* Life Insurance Pages */}
           <Route path="/life-insurance" element={<LifeInsurancePage />} />
           <Route path="/term-insurance" element={<TermLifeInsurancePage />} />
           <Route path="/whole-life-insurance" element={<WholeLifeInsurancePage />} />
           <Route path="/child-plans" element={<ChildPlansPage />} />
           <Route path="/retirement-plans" element={<RetirementPlansPage />} />
+
           {/* Travel Insurance Sub-pages */}
           <Route path="/domestic-travel-insurance" element={<DomesticTravelInsurancePage />} />
           <Route path="/international-travel-insurance" element={<InternationalTravelInsurancePage />} />
           <Route path="/student-travel-insurance" element={<StudentTravelInsurancePage />} />
+
           {/* Business Insurance Pages */}
           <Route path="/business-insurance" element={<BusinessInsurancePage />} />
           <Route path="/commercial-vehicle-insurance" element={<CommercialVehicleInsurancePage />} />
           <Route path="/property-insurance" element={<PropertyInsurancePage />} />
           <Route path="/employee-health-insurance" element={<EmployeeHealthInsuranceBusinessPage />} />
+
           {/* Main Navbar Pages */}
           <Route path="/enterprise" element={<EnterprisePage />} />
           <Route path="/why-thiru" element={<WhyThiruInsurancePage />} />
           <Route path="/support" element={<SupportPage />} />
+          <Route path="/support/call-us" element={<CallUsPage />} />
+          <Route path="/support/faqs" element={<FAQsPage />} />
+          <Route path="/support/claim-assistance" element={<ClaimAssistancePage />} />
+          <Route path="/support/grievance-support" element={<GrievanceSupportPage />} />
           <Route path="/renewals" element={<RenewalsPage />} />
           <Route path="/claims" element={<ClaimsPage />} />
+
           {/* Sub-pages */}
           <Route path="/enterprise/group-health-insurance" element={<EnterprisePage />} />
           <Route path="/enterprise/employee-benefits" element={<EnterprisePage />} />
@@ -120,13 +136,9 @@ export default function App() {
           <Route path="/why-thiru/customer-support" element={<WhyThiruInsurancePage />} />
           <Route path="/why-thiru/digital-policy" element={<WhyThiruInsurancePage />} />
           <Route path="/why-thiru/customer-first" element={<WhyThiruInsurancePage />} />
-          <Route path="/faqs" element={<SupportPage />} />
-          <Route path="/claim-assistance" element={<SupportPage />} />
-          <Route path="/grievance-support" element={<SupportPage />} />
-          <Route path="/renew/car-insurance" element={<RenewalsPage />} />
-          <Route path="/renew/bike-insurance" element={<RenewalsPage />} />
-          <Route path="/renew/health-insurance" element={<RenewalsPage />} />
-          <Route path="/renew/life-insurance" element={<RenewalsPage />} />
+          {/* Renewals routes */}
+          <Route path="/renewals" element={<RenewalsPage />} />
+          <Route path="/renewals/:type" element={<RenewalPage />} />
           <Route path="/claims/file-claim" element={<ClaimsPage />} />
           <Route path="/claims/track-status" element={<ClaimsPage />} />
         </Route>

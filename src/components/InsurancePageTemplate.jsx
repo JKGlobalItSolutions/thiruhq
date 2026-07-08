@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { banners } from "@/assets/bannerImports";
 
 const defaultStyle = {
   input: "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#222222] placeholder-gray-400 focus:border-[#14204A] focus:ring-2 focus:ring-[#14204A]/10 transition-all duration-200 outline-none",
@@ -188,7 +189,7 @@ export function InsurancePageTemplate({
             <div className="relative mx-auto max-w-md lg:max-w-lg">
               <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-brand opacity-30 blur-2xl" />
               {heroImage ? (
-                <img src={heroImage} alt={title} width={1024} height={540} className="rounded-[2rem] shadow-elegant object-cover w-full" />
+                <img src={banners[heroImage.split('/').pop().replace('.webp', '')] || heroImage} alt={title} width={1024} height={540} className="rounded-[2rem] shadow-elegant object-cover w-full" />
               ) : (
                 <div className="grid h-64 w-full place-items-center rounded-[2rem] bg-white/60 shadow-elegant">
                   {Icon && <Icon className="h-20 w-20 text-primary/40" />}

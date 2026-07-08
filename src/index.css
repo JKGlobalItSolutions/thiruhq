@@ -168,3 +168,37 @@
 @utility animate-blob {
   animation: blob 14s ease-in-out infinite;
 }
+
+/* ===== Get Quote Button - Force Dark Navy (#0B1F5B) in ALL states ===== */
+.get-quote-btn,
+.get-quote-btn:link,
+.get-quote-btn:visited {
+  background-color: #0B1F5B !important;
+  color: #ffffff !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.get-quote-btn:hover,
+.get-quote-btn:focus,
+.get-quote-btn:active,
+.get-quote-btn:focus-visible,
+.get-quote-btn:focus-within {
+  background-color: #0B1F5B !important;
+  color: #ffffff !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 12px rgba(11, 31, 91, 0.25) !important;
+}
+
+/* Remove any browser default focus ring that could cause white flash */
+.get-quote-btn::-moz-focus-inner {
+  border: 0 !important;
+}
+
+/* Ensure the button inside the mobile menu also stays dark navy */
+.get-quote-btn.w-full {
+  background-color: #0B1F5B !important;
+  color: #ffffff !important;
+}

@@ -1,5 +1,6 @@
 import { Briefcase, Shield, Zap, Clock, Award, Building } from "lucide-react";
 import { GenericPage } from "./GenericPage";
+import { BusinessInsuranceIllustration } from "@/assets/illustrations";
 
 const features = [
   { icon: Building, title: "Complete Business Cover", desc: "Comprehensive insurance coverage for all types of businesses." },
@@ -18,6 +19,7 @@ export default function BusinessInsurancePage() {
       features={features}
       breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Business Insurance" }]}
       icon={Briefcase}
+      illustration={<BusinessInsuranceIllustration />}
     />
   );
 }

@@ -8,7 +8,7 @@ export default function SeniorCitizenInsurancePage() {
       subtitle="Specialized health coverage for seniors with no age limit."
       description="Comprehensive health insurance for ages 60+ with pre-existing disease cover, lifetime renewability, and cashless hospitalization. Secure your golden years."
       heroIcon={Heart}
-      heroImage="/src/assets/insurance-banners/senior-citizen-insurance.webp"
+      heroImage="/src/assets/insurance-banners/senior-citizen-health-insurance.webp"
       breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Health Insurance", href: "/health-insurance" }, { label: "Senior Citizen Health Insurance" }]}
       productName="Senior Citizen Health Insurance"
       introduction="As we age, healthcare needs increase and medical expenses can become a significant financial burden. Senior Citizen Health Insurance is specifically designed to address the unique healthcare challenges faced by individuals aged 60 years and above. At THIRU Insurance, we offer specialized health insurance plans for senior citizens that provide comprehensive coverage without upper age limits, ensuring you receive the medical care you deserve without worrying about costs."

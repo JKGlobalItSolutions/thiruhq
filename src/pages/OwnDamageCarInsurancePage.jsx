@@ -8,7 +8,7 @@ export default function OwnDamageCarInsurancePage() {
       subtitle="Protect your car from accidents, theft, fire & natural disasters."
       description="Comprehensive own damage coverage for your vehicle. Get financial protection against unexpected damage with affordable premiums."
       heroIcon={Shield}
-      heroImage="/src/assets/insurance-banners/own-damage-car-insurance.webp"
+      heroImage="/src/assets/insurance-banners/own-damage-insurance.webp"
       breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Car Insurance", href: "/car-insurance" }, { label: "Own Damage Insurance" }]}
       productName="Own Damage Car Insurance"
       introduction="Own Damage Car Insurance is a critical component of a comprehensive car insurance policy that specifically covers damage to your own vehicle. Whether it's an accident, theft, fire, flood, or vandalism, this coverage ensures that your car's repair or replacement costs are taken care of. At THIRU Insurance, we offer affordable own damage cover that gives you complete financial protection for your vehicle."

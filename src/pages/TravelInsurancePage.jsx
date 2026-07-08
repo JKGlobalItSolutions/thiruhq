@@ -1,5 +1,6 @@
 import { Plane, CheckCircle2, Zap, Shield, Clock, Award, MapPin, DollarSign } from "lucide-react";
 import { GenericPage } from "./GenericPage";
+import { TravelInsuranceIllustration } from "@/assets/illustrations";
 
 const features = [
   { icon: Shield, title: "Medical Cover", desc: "Coverage up to $500,000 for medical emergencies during international trips." },
@@ -19,6 +20,7 @@ export default function TravelInsurancePage() {
       features={features}
       breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Travel Insurance" }]}
       icon={Plane}
+      illustration={<TravelInsuranceIllustration />}
     />
   );
 }

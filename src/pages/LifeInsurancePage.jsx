@@ -1,5 +1,6 @@
 import { Heart, Shield, Zap, Clock, Award, CheckCircle2 } from "lucide-react";
 import { GenericPage } from "./GenericPage";
+import { LifeInsuranceIllustration } from "@/assets/illustrations";
 
 const features = [
   { icon: Shield, title: "Comprehensive Life Cover", desc: "Financial protection for your loved ones with flexible coverage options." },
@@ -18,6 +19,7 @@ export default function LifeInsurancePage() {
       features={features}
       breadcrumbs={[{ label: "Insurance", href: "/insurance" }, { label: "Life Insurance" }]}
       icon={Heart}
+      illustration={<LifeInsuranceIllustration />}
     />
   );
 }

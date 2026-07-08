@@ -203,7 +203,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 md:px-6 text-center">
           <span className="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold backdrop-blur">Become A Partner</span>
           <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
-            Grow your business <br />with <span className="bg-gradient-primary bg-clip-text text-transparent">THIRU</span>
+            Grow your business <br />with <span className="bg-gradient-primary bg-clip-text text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">THIRU</span>
           </h2>
           <p className="mt-5 max-w-xl mx-auto text-lg text-primary-foreground/85">
             Join 5,000+ partners earning predictable, recurring commissions with India's fastest-growing digital insurance platform.

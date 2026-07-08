@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown, ShieldCheck, Car, Bike, Plane, Briefcase, Heart, 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoImg from "@/assets/logo.png";
+import GetQuoteModal from "@/components/GetQuoteModal";
 
 const CATEGORIES = [
   { id: "motor", label: "Motor Insurance", icon: Car, slug: "/insurance/motor-insurance" },
@@ -33,9 +34,9 @@ const SUBCATEGORIES = {
         icon: Bike,
         slug: "/insurance/bike-insurance",
         items: [
-          { label: "Comprehensive Bike Insurance", slug: "/insurance/bike-insurance" },
-          { label: "Third Party Bike Insurance", slug: "/insurance/bike-insurance" },
-          { label: "Electric Bike Insurance", slug: "/insurance/bike-insurance" },
+          { label: "Comprehensive Bike Insurance", slug: "/comprehensive-bike-insurance" },
+          { label: "Third Party Bike Insurance", slug: "/third-party-bike-insurance" },
+          { label: "Electric Bike Insurance", slug: "/electric-bike-insurance" },
         ],
       },
     ],
@@ -107,11 +108,12 @@ const SUPPORT_ITEMS = [
   { label: "Grievance Support", slug: "/grievance-support", desc: "Raise and track grievances", icon: FileText },
 ];
 
+// Keep the renewals dropdown items on explicit route aliases so desktop clicks navigate reliably.
 const RENEWALS_ITEMS = [
-  { label: "Renew Car Insurance", slug: "/renew/car-insurance", icon: Car },
-  { label: "Renew Bike Insurance", slug: "/renew/bike-insurance", icon: Bike },
-  { label: "Renew Health Insurance", slug: "/renew/health-insurance", icon: Heart },
-  { label: "Renew Life Insurance", slug: "/renew/life-insurance", icon: ShieldCheck },
+  { label: "Renew Car Insurance", slug: "/renewals/car", icon: Car },
+  { label: "Renew Bike Insurance", slug: "/renewals/bike", icon: Bike },
+  { label: "Renew Health Insurance", slug: "/renewals/health", icon: Heart },
+  { label: "Renew Life Insurance", slug: "/renewals/life", icon: ShieldCheck },
 ];
 
 const CLAIMS_ITEMS = [
@@ -151,6 +153,12 @@ export function Header() {
 
   const handleDropdownLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
+  };
+
+  // Ensure dropdowns close immediately before navigation so click targets remain interactive.
+  const handleNavClick = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setOpenDropdown(null);
   };
 
   useEffect(() => {
@@ -288,7 +296,7 @@ export function Header() {
 
   const renderDropdown = (items, isEnterpriseStyle = false, isIconStyle = false) => (
     <div
-      className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-100 bg-white shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] p-3 animate-in fade-in slide-in-from-top-2 duration-200"
+      className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-100 bg-white shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] p-3 animate-in fade-in slide-in-from-top-2 duration-200 z-[60] pointer-events-auto"
       onMouseEnter={() => {
         if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
       }}
@@ -299,7 +307,7 @@ export function Header() {
           <Link
             key={item.label}
             to={item.slug}
-            onClick={() => setOpenDropdown(null)}
+            onClick={handleNavClick}
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-all duration-200",
               isIconStyle && "gap-3"
@@ -412,11 +420,7 @@ export function Header() {
             </div>
           ))}
 
-          <Link to="/get-quote">
-            <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white shadow-sm hover:shadow-md rounded-xl px-5 font-semibold text-sm transition-all duration-200">
-              Get Quote
-            </Button>
-          </Link>
+          <GetQuoteModal />
 
           <Link to="/login">
             <Button variant="ghost" size="default" className="font-semibold text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 rounded-lg">
@@ -433,11 +437,7 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex lg:hidden items-center gap-2.5 shrink-0">
-          <Link to="/get-quote">
-            <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white shadow-sm hover:shadow-md rounded-xl px-5 font-semibold text-sm transition-all duration-200">
-              Get Quote
-            </Button>
-          </Link>
+          <GetQuoteModal />
           <Link to="/login">
             <Button variant="ghost" size="default" className="font-semibold text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 rounded-lg">
               Login
@@ -571,7 +571,7 @@ export function Header() {
 
               {/* Renewals */}
               <Link
-                to="/renew-car-insurance"
+                to="/renewals"
                 onClick={() => setMobileOpen(false)}
                 className="rounded-lg px-4 py-3 text-sm font-medium text-[#555555] hover:text-[#14204A] hover:bg-[#14204A]/5 transition-colors"
               >
@@ -594,11 +594,9 @@ export function Header() {
                   Login
                 </Button>
               </Link>
-              <Link to="/get-quote" onClick={() => setMobileOpen(false)}>
-                <Button className="bg-[#14204A] hover:bg-[#14204A]/90 text-white rounded-xl font-semibold w-full">
-                  Get Quote
-                </Button>
-              </Link>
+              <div onClick={() => setMobileOpen(false)}>
+                <GetQuoteModal />
+              </div>
             </div>
             <div className="mt-3 flex items-center justify-center gap-2 text-sm text-[#555555]">
               <Globe className="h-4 w-4" />
